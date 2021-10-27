@@ -37,9 +37,56 @@ class User: ObservableObject, Codable {
 
 
 struct ContentView: View {
+    @State private var results = [Result]()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        List(results, id:\.trackId) { item in
+            VStack(alignment: .leading) {
+                Text(item.trackName)
+                    .font(.headline)
+                Text(item.collectionName)
+            }
+        }
+        .onAppear(perform: loadData)
+    }
+
+    /**
+     Creating the URL we want to read.
+     Wrapping that in a URLRequest, which allows us to configure how the URL should be accessed.
+     Create and start a networking task from that URL request.
+     Handle the result of that networking task.
+
+      Notice the way we call resume() on the task straight away?
+      Without it the request does nothing and you’ll be staring at a blank screen.
+      But with it the request starts immediately, and control gets handed over to the system –
+      it will automatically run in the background, and won’t be destroyed even after our method ends.
+
+     */
+    func loadData() {
+        guard let url = URL(string: "https://itunes.apple.com/search?term=u2&entity=song") else {
+            print("Invalid URL")
+            return
+        }
+
+        let request = URLRequest(url: url)
+        // if an error occurred then data won’t be set, and if data was sent back then error won’t be set
+        // URLSession automatically runs in the background thread
+        URLSession.shared.dataTask(with: request) { data, response, error in
+
+        // it’s a much better idea to fetch your data in the background,
+        // decode it from JSON in the background,
+        // then actually update the property on the main thread to avoid any potential for problems.
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
+                    DispatchQueue.main.async {  //go back to main thread,update our UI
+                        self.results = decodedResponse.results
+                    }
+                    return
+                }
+            }
+            // if we're still here it means there was a problem
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+        }.resume()
+
     }
 }
 
