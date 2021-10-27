@@ -38,15 +38,40 @@ class User: ObservableObject, Codable {
 
 struct ContentView: View {
     @State private var results = [Result]()
+    @State private var name = ""
+    @State private var email = ""
+
+    var disableSearch: Bool {
+        name.contains(" ") || email.isEmpty
+    }
+
     var body: some View {
-        List(results, id:\.trackId) { item in
-            VStack(alignment: .leading) {
-                Text(item.trackName)
-                    .font(.headline)
-                Text(item.collectionName)
+        Form {
+            Section {
+                TextField("Artist name:", text: $name)
+                TextField("email:", text: $email)
+            }
+
+            Section {
+                Button("Search") {
+                    print("Send itune search api for: \(name)")
+                    loadData(search: name)
+                }
+                .padding()
+                .disabled(disableSearch)
+
+            }
+
+            Section {
+                List(results, id:\.trackId) { item in
+                    VStack(alignment: .leading) {
+                        Text(item.trackName)
+                            .font(.headline)
+                        Text(item.collectionName)
+                    }
+                }
             }
         }
-        .onAppear(perform: loadData)
     }
 
     /**
@@ -61,8 +86,12 @@ struct ContentView: View {
       it will automatically run in the background, and won’t be destroyed even after our method ends.
 
      */
-    func loadData() {
-        guard let url = URL(string: "https://itunes.apple.com/search?term=u2&entity=song") else {
+    func loadData(search artist: String? = nil) {
+        var queryArtist: String {
+            return artist ?? "taylor+swift"
+        }
+
+        guard let url = URL(string: "https://itunes.apple.com/search?term=\(queryArtist)&entity=song") else {
             print("Invalid URL")
             return
         }
