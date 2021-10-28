@@ -25,6 +25,10 @@ struct AddressView: View {
                 }
             }
             .disabled(order.hasValidAddress == false)
+
+            Image("darthVader")
+                .resizable()
+                .scaledToFit()
         }
         .navigationBarTitle("Delivery details", displayMode: .inline)
     }

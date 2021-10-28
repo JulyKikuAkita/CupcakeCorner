@@ -39,4 +39,29 @@ class Order: ObservableObject {
         }
         return true
     }
+
+    // cupcake pricing
+    // There’s a base cost of $2 per cupcake.
+    // We’ll add a little to the cost for more complicated cakes.
+    // Extra frosting will cost $1 per cake.
+    // Adding sprinkles will be another 50 cents per cake.
+    var cost: Double {
+        // $2 per cake
+        var cost = Double(quantity) * 2
+
+        // complicated cakes cost more
+        cost += (Double(type) / 2)
+
+        // $1/cake for extra frosting
+        if extraFrosting {
+            cost += Double(quantity)
+        }
+
+        // $0.50/cake for sprinkles
+        if addSprinkles {
+            cost += Double(quantity) / 2
+        }
+
+        return cost
+    }
 }
