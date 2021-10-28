@@ -37,85 +37,47 @@ class User: ObservableObject, Codable {
 
 
 struct ContentView: View {
-    @State private var results = [Result]()
-    @State private var name = ""
-    @State private var email = ""
-
-    var disableSearch: Bool {
-        name.contains(" ") || email.isEmpty
-    }
+    @ObservedObject var order = Order()
 
     var body: some View {
-        Form {
-            Section {
-                TextField("Artist name:", text: $name)
-                TextField("email:", text: $email)
-            }
+        NavigationView {
+            Form {
+                Section {
+                    Picker("Select your cake type", selection: $order.type) {
+                        ForEach(0..<Order.types.count) {
+                            Text(Order.types[$0])
+                        }
+                    }
 
-            Section {
-                Button("Search") {
-                    print("Send itune search api for: \(name)")
-                    loadData(search: name)
+                    Stepper(value: $order.quantity, in: 3...20) {
+                        Text("Number of cakes: \(order.quantity)")
+                    }
                 }
-                .padding()
-                .disabled(disableSearch)
 
-            }
+                Section {
+                    Toggle(isOn: $order.specialRequestEnabled.animation()) {
+                        Text("Any special requests?")
+                    }
 
-            Section {
-                List(results, id:\.trackId) { item in
-                    VStack(alignment: .leading) {
-                        Text(item.trackName)
-                            .font(.headline)
-                        Text(item.collectionName)
+                    if order.specialRequestEnabled {
+                        Toggle(isOn: $order.extraFrosting) {
+                            Text("Add extra frosting")
+                        }
+
+                        Toggle(isOn: $order.addSprinkles) {
+                            Text("Add extra sprinkles")
+                        }
+                    }
+                }
+
+                Section {
+                    NavigationLink(destination: AddressView(order: order)) {
+                        Text("Delivery details")
                     }
                 }
             }
+            .navigationBarTitle("Cupcake Corner")
         }
-    }
-
-    /**
-     Creating the URL we want to read.
-     Wrapping that in a URLRequest, which allows us to configure how the URL should be accessed.
-     Create and start a networking task from that URL request.
-     Handle the result of that networking task.
-
-      Notice the way we call resume() on the task straight away?
-      Without it the request does nothing and you’ll be staring at a blank screen.
-      But with it the request starts immediately, and control gets handed over to the system –
-      it will automatically run in the background, and won’t be destroyed even after our method ends.
-
-     */
-    func loadData(search artist: String? = nil) {
-        var queryArtist: String {
-            return artist ?? "taylor+swift"
-        }
-
-        guard let url = URL(string: "https://itunes.apple.com/search?term=\(queryArtist)&entity=song") else {
-            print("Invalid URL")
-            return
-        }
-
-        let request = URLRequest(url: url)
-        // if an error occurred then data won’t be set, and if data was sent back then error won’t be set
-        // URLSession automatically runs in the background thread
-        URLSession.shared.dataTask(with: request) { data, response, error in
-
-        // it’s a much better idea to fetch your data in the background,
-        // decode it from JSON in the background,
-        // then actually update the property on the main thread to avoid any potential for problems.
-            if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
-                    DispatchQueue.main.async {  //go back to main thread,update our UI
-                        self.results = decodedResponse.results
-                    }
-                    return
-                }
-            }
-            // if we're still here it means there was a problem
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-        }.resume()
-
     }
 }
 
