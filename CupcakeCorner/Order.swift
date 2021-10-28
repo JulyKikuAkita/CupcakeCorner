@@ -24,4 +24,19 @@ class Order: ObservableObject {
     
     @Published var extraFrosting = false
     @Published var addSprinkles = false
+
+    // Note: if want to preserve change between view while use struct,
+    // you should follow the same struct inside class approach we used back in project 7
+    // delivery details
+    @Published var name = ""
+    @Published var streetAddress = ""
+    @Published var city = ""
+    @Published var zip = ""
+
+    var hasValidAddress: Bool {
+        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+            return false
+        }
+        return true
+    }
 }

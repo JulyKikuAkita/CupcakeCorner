@@ -14,6 +14,7 @@
 		CAAD7A502723482700C95E2A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAAD7A4F2723482700C95E2A /* Preview Assets.xcassets */; };
 		CADF2863272B4A9800B2944E /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2862272B4A9800B2944E /* Order.swift */; };
 		CADF2865272B4EB800B2944E /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2864272B4EB800B2944E /* AddressView.swift */; };
+		CADF2867272B510500B2944E /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2866272B510500B2944E /* CheckoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		CAAD7A4F2723482700C95E2A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CADF2862272B4A9800B2944E /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		CADF2864272B4EB800B2944E /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		CADF2866272B510500B2944E /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				CAAD7A482723482200C95E2A /* CupcakeCornerApp.swift */,
 				CAAD7A4A2723482200C95E2A /* ContentView.swift */,
+				CADF2866272B510500B2944E /* CheckoutView.swift */,
 				CADF2864272B4EB800B2944E /* AddressView.swift */,
 				CADF2862272B4A9800B2944E /* Order.swift */,
 				CA22EF192729FF5700092933 /* iTuneData.swift */,
@@ -148,6 +151,7 @@
 			files = (
 				CAAD7A4B2723482200C95E2A /* ContentView.swift in Sources */,
 				CA22EF1A2729FF5700092933 /* iTuneData.swift in Sources */,
+				CADF2867272B510500B2944E /* CheckoutView.swift in Sources */,
 				CADF2863272B4A9800B2944E /* Order.swift in Sources */,
 				CAAD7A492723482200C95E2A /* CupcakeCornerApp.swift in Sources */,
 				CADF2865272B4EB800B2944E /* AddressView.swift in Sources */,
