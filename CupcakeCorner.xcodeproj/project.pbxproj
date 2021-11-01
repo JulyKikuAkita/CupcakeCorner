@@ -15,6 +15,7 @@
 		CADF2863272B4A9800B2944E /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2862272B4A9800B2944E /* Order.swift */; };
 		CADF2865272B4EB800B2944E /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2864272B4EB800B2944E /* AddressView.swift */; };
 		CADF2867272B510500B2944E /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2866272B510500B2944E /* CheckoutView.swift */; };
+		CADF2869272FBBBA00B2944E /* Order2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF2868272FBBBA00B2944E /* Order2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		CADF2862272B4A9800B2944E /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		CADF2864272B4EB800B2944E /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		CADF2866272B510500B2944E /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		CADF2868272FBBBA00B2944E /* Order2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				CADF2866272B510500B2944E /* CheckoutView.swift */,
 				CADF2864272B4EB800B2944E /* AddressView.swift */,
 				CADF2862272B4A9800B2944E /* Order.swift */,
+				CADF2868272FBBBA00B2944E /* Order2.swift */,
 				CA22EF192729FF5700092933 /* iTuneData.swift */,
 				CAAD7A4C2723482700C95E2A /* Assets.xcassets */,
 				CAAD7A4E2723482700C95E2A /* Preview Content */,
@@ -154,6 +157,7 @@
 				CADF2867272B510500B2944E /* CheckoutView.swift in Sources */,
 				CADF2863272B4A9800B2944E /* Order.swift in Sources */,
 				CAAD7A492723482200C95E2A /* CupcakeCornerApp.swift in Sources */,
+				CADF2869272FBBBA00B2944E /* Order2.swift in Sources */,
 				CADF2865272B4EB800B2944E /* AddressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

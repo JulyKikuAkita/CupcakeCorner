@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CheckoutView: View {
-    @ObservedObject var order: Order
+    @ObservedObject var order: Order.orderC
     @State private var confirmationMessage = ""
     @State private var showingConfimation = false
     @State private var showingErrorView = false
@@ -74,7 +74,7 @@ struct CheckoutView: View {
                 return
             }
 
-            if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data) {
+            if let decodedOrder = try? JSONDecoder().decode(Order.orderC.self, from: data) {
                 self.confirmationMessage = "Your order for \(decodedOrder.quantity) x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
                 self.showingConfimation = true
                 self.showingErrorView = false
@@ -87,6 +87,6 @@ struct CheckoutView: View {
 
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckoutView(order: Order())
+        CheckoutView(order: Order.orderC())
     }
 }
