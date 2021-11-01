@@ -67,8 +67,15 @@ class Order: ObservableObject, Codable {
     @Published var city = ""
     @Published var zip = ""
 
+    /**
+     1. Our address fields are currently considered valid if they contain anything, even if it’s just only whitespace.
+     Improve the validation to make sure a string of pure whitespace is invalid.
+     */
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+            streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+            city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+            zip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             return false
         }
         return true

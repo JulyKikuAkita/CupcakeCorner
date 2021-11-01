@@ -11,6 +11,7 @@ struct CheckoutView: View {
     @ObservedObject var order: Order
     @State private var confirmationMessage = ""
     @State private var showingConfimation = false
+    @State private var showingErrorView = false
 
     var body: some View {
         GeometryReader { geo in
@@ -29,6 +30,10 @@ struct CheckoutView: View {
 
                     }
                     .padding()
+
+                    if showingErrorView {
+                        Text("Error: No internet")
+                    }
 
                     Image("myFutureNoodles")
                         .resizable()
@@ -61,12 +66,18 @@ struct CheckoutView: View {
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
+                if let errorCode = (response as? HTTPURLResponse)?.statusCode {
+                    print("Http status code: \(errorCode)")
+                } else if let error = error, error.localizedDescription.contains("The Internet connection appears to be offline") {
+                    showingErrorView = true
+                }
                 return
             }
 
             if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data) {
                 self.confirmationMessage = "Your order for \(decodedOrder.quantity) x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
                 self.showingConfimation = true
+                self.showingErrorView = false
             } else {
                 print("Invalid response from server")
             }
